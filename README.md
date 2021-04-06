@@ -1,5 +1,10 @@
 # Introduction
-
+This repository forked from  [juj/fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
+## What I do
+1. sorted out the folders
+2. add the ability to change screen size to fit more screens
+3. added most of the WaveShare LCD Hat support
+## from [juj/fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
 This repository implements a driver for certain SPI-based LCD displays for Raspberry Pi A, B, 2, 3, 4 and Zero.
 
 
@@ -64,11 +69,11 @@ Likewise, if you have any touch controller related dtoverlays active, such as `d
 Run in the console of your Raspberry Pi:
 
 ```bash
-sudo apt-get install cmake
+sudo apt-get install cmake -y
+
 cd ~
-wget https://www.waveshare.net/w/upload/2/2d/Fbcp-ili9341.7z
-7z x Fbcp-ili9341.7z
-cd fbcp-ili9341
+git clone https://github.com/EngineerWill/waveshare_fbcp.git
+cd waveshare_fbcp
 mkdir build
 cd build
 cmake [options] ..

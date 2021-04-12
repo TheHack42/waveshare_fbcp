@@ -431,6 +431,7 @@ int main()
           
 #else
           QUEUE_MOVE_CURSOR_TASK(DISPLAY_SET_CURSOR_Y, displayYOffset + i->y);
+          //printf("\r\n y= %d \r\n",displayYOffset + i->y);
 #endif
           IN_SINGLE_THREADED_MODE_RUN_TASK();
           spiY = i->y;
@@ -442,6 +443,7 @@ int main()
           IN_SINGLE_THREADED_MODE_RUN_TASK();
           spiX = i->x;
           spiEndX = i->endX;
+          
         }
         else // Singleline span
         {
@@ -535,6 +537,7 @@ int main()
           }
           while (x < endX)
             *data++ = __builtin_bswap16(scanline[x++]);
+          //printf("\r\n x= %d \r\n",displayXOffset + i->x);
 #endif
 #if !(defined(ALL_TASKS_SHOULD_DMA) && defined(UPDATE_FRAMES_WITHOUT_DIFFING)) // If not diffing, no need to maintain prev frame.
           memcpy(prevScanline + i->x, scanline + i->x, (endX - i->x) * FRAMEBUFFER_BYTESPERPIXEL);

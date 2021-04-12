@@ -27,22 +27,18 @@ void InitST7789()
 
   BEGIN_SPI_COMMUNICATION();
   {
-#ifndef ST7789VW // For some reason, ST7789VW does not want to accept the Software Reset command, but screen stays black if SWRESET is sent to it.
-    SPI_TRANSFER(0x01/*Software Reset*/);
-#endif
-    usleep(120*1000);
-    SPI_TRANSFER(0x11/*Sleep Out*/);
+
     usleep(120 * 1000);
-#ifndef ST7789VW // This is disabled on ST7789VW because it was observed to look visually bad, makes colors a bit too contrasty/deep
-    SPI_TRANSFER(0x26/*Gamma Curve Select*/, 0x04/*Gamma curve 3 (2.5x if GS=1, 2.2x otherwise)*/);
-#endif
-    SPI_TRANSFER(0x3A/*COLMOD: Pixel Format Set*/, 0x05/*16bpp*/);
+    SPI_TRANSFER(0x11 /*Sleep Out*/);
+    usleep(120 * 1000);
+
+    SPI_TRANSFER(0x3A /*COLMOD: Pixel Format Set*/, 0x05 /*16bpp*/);
     usleep(20 * 1000);
 
-#define MADCTL_BGR_PIXEL_ORDER (1<<3)
-#define MADCTL_ROW_COLUMN_EXCHANGE (1<<5)
-#define MADCTL_COLUMN_ADDRESS_ORDER_SWAP (1<<6)
-#define MADCTL_ROW_ADDRESS_ORDER_SWAP (1<<7)
+#define MADCTL_BGR_PIXEL_ORDER (1 << 3)
+#define MADCTL_ROW_COLUMN_EXCHANGE (1 << 5)
+#define MADCTL_COLUMN_ADDRESS_ORDER_SWAP (1 << 6)
+#define MADCTL_ROW_ADDRESS_ORDER_SWAP (1 << 7)
 #define MADCTL_ROTATE_180_DEGREES (MADCTL_COLUMN_ADDRESS_ORDER_SWAP | MADCTL_ROW_ADDRESS_ORDER_SWAP)
 
     uint8_t madctl = 0;
@@ -69,11 +65,11 @@ void InitST7789()
     madctl ^= MADCTL_ROW_COLUMN_EXCHANGE;
 #endif
 
-    SPI_TRANSFER(0x36/*MADCTL: Memory Access Control*/, madctl);
-    usleep(10*1000);
+    SPI_TRANSFER(0x36 /*MADCTL: Memory Access Control*/, madctl);
+    usleep(10 * 1000);
 
 #ifdef ST7789
-    SPI_TRANSFER(0xBA/*DGMEN: Enable Gamma*/, 0x04);
+    //SPI_TRANSFER(0xBA/*DGMEN: Enable Gamma*/, 0x04);
     bool invertColors = true;
 #else
     bool invertColors = false;
@@ -83,29 +79,31 @@ void InitST7789()
 #endif
 
     if (invertColors)
-      SPI_TRANSFER(0x21/*Display Inversion On*/);
+      SPI_TRANSFER(0x21 /*Display Inversion On*/);
     else
-      SPI_TRANSFER(0x20/*Display Inversion Off*/);
+      SPI_TRANSFER(0x20 /*Display Inversion Off*/);
 
-    SPI_TRANSFER(0x13/*NORON: Partial off (normal)*/);
-    usleep(10*1000);
+    SPI_TRANSFER(0x13 /*NORON: Partial off (normal)*/);
+    usleep(10 * 1000);
 
 #ifdef ST7789
     // The ST7789 controller is actually a unit with 320x240 graphics memory area, but only 240x240 portion
     // of it is displayed. Therefore if we wanted to swap row address mode above, writes to Y=0...239 range will actually land in
     // memory in row addresses Y = 319-(0...239) = 319...80 range. To view this range, we must scroll the view by +80 units in Y
     // direction so that contents of Y=80...319 is displayed instead of Y=0...239.
+    
     if ((madctl & MADCTL_ROW_ADDRESS_ORDER_SWAP))
-      SPI_TRANSFER(0x37/*VSCSAD: Vertical Scroll Start Address of RAM*/, 0, 320 - DISPLAY_WIDTH);
+      SPI_TRANSFER(0x37 /*VSCSAD: Vertical Scroll Start Address of RAM*/, 0, 320 - DISPLAY_HEIGHT);
+    printf("DISPLAY_HEIGHT =%d\r\n",DISPLAY_HEIGHT);
 #endif
 
-    // TODO: The 0xB1 command is not Frame Rate Control for ST7789VW, 0xB3 is (add support to it)
+      // TODO: The 0xB1 command is not Frame Rate Control for ST7789VW, 0xB3 is (add support to it)
 #ifndef ST7789VW
     // Frame rate = 850000 / [ (2*RTNA+40) * (162 + FPA+BPA)]
-    SPI_TRANSFER(0xB1/*FRMCTR1:Frame Rate Control*/, /*RTNA=*/6, /*FPA=*/1, /*BPA=*/1); // This should set frame rate = 99.67 Hz
+    SPI_TRANSFER(0xB1 /*FRMCTR1:Frame Rate Control*/, /*RTNA=*/6, /*FPA=*/1, /*BPA=*/1); // This should set frame rate = 99.67 Hz
 #endif
 
-    SPI_TRANSFER(/*Display ON*/0x29);
+    SPI_TRANSFER(/*Display ON*/ 0x29);
     usleep(100 * 1000);
 #if defined(WAVESHARE_1INCH14_LCD)
     SPI_TRANSFER(0xc0, 0x2c);
@@ -116,16 +114,16 @@ void InitST7789()
 #endif
 #if 0
     // TODO: ST7789VW Python example suggests following, check them against datasheet if there's anything interesting
-    SPI_TRANSFER(0xB2, 0xc, 0xc, 0, 0x33, 0x33);
+    SPI_TRANSFER(0xB2, 0x0c, 0x0c, 0x00, 0x33, 0x33);
     SPI_TRANSFER(0xB7, 0x35);
-    SPI_TRANSFER(0xBb, 0x19);
+    SPI_TRANSFER(0xBb, 0x1f);
     SPI_TRANSFER(0xc0, 0x2c);
     SPI_TRANSFER(0xc2, 0x01);
     SPI_TRANSFER(0xc3, 0x12);
     SPI_TRANSFER(0xc4, 0x20);
     SPI_TRANSFER(0xc6, 0x0f);
     SPI_TRANSFER(0xd0, 0xa4, 0xa1);
-    SPI_TRANSFER(0xe0, 0xd0, 0x04, 0x0d, 0x11, 0x13, 0x2b, 0x3f, 0x54, 0x4c, 0x18, 0x0d, 0x0b, 0x1f, 0x23);
+    SPI_TRANSFER(0xe0, 0xd0, 0x08, 0x11, 0x08, 0x0C, 0x15, 0x3f, 0x54, 0x4c, 0x18, 0x0d, 0x0b, 0x1f, 0x23);
     SPI_TRANSFER(0xe1, 0xd0, 0x04, 0x0c, 0x11, 0x13, 0x2c, 0x3f, 0x44, 0x51, 0x2f, 0x1f, 0x1f, 0x20, 0x23);
     SPI_TRANSFER(0x21);
     SPI_TRANSFER(0x11);
@@ -136,11 +134,10 @@ void InitST7789()
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)
     printf("Setting TFT backlight on at pin %d\n", GPIO_TFT_BACKLIGHT);
     SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
-    SET_GPIO(GPIO_TFT_BACKLIGHT); // And turn the backlight on.
+    SET_GPIO(GPIO_TFT_BACKLIGHT);            // And turn the backlight on.
 #endif
 
     ClearScreen();
-    
   }
 #ifndef USE_DMA_TRANSFERS // For DMA transfers, keep SPI CS & TA active.
   END_SPI_COMMUNICATION();
@@ -155,14 +152,15 @@ void TurnDisplayOff()
 {
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)
   SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
-  CLEAR_GPIO(GPIO_TFT_BACKLIGHT); // And turn the backlight off.
+  CLEAR_GPIO(GPIO_TFT_BACKLIGHT);          // And turn the backlight off.
 #endif
 #if 0
   QUEUE_SPI_TRANSFER(0x28/*Display OFF*/);
   QUEUE_SPI_TRANSFER(0x10/*Enter Sleep Mode*/);
+
   usleep(120*1000); // Sleep off can be sent 120msecs after entering sleep mode the earliest, so synchronously sleep here for that duration to be safe.
 #endif
-//  printf("Turned display OFF\n");
+  //  printf("Turned display OFF\n");
 }
 
 void TurnDisplayOn()
@@ -174,9 +172,9 @@ void TurnDisplayOn()
 #endif
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)
   SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
-  SET_GPIO(GPIO_TFT_BACKLIGHT); // And turn the backlight on.
+  SET_GPIO(GPIO_TFT_BACKLIGHT);            // And turn the backlight on.
 #endif
-//  printf("Turned display ON\n");
+  //  printf("Turned display ON\n");
 }
 
 void DeinitSPIDisplay()

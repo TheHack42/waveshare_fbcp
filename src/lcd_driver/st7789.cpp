@@ -60,7 +60,7 @@ void InitST7789()
 #endif
 
 #if defined(WAVESHARE_1INCH14_LCD)
-    madctl ^= MADCTL_BGR_PIXEL_ORDER;
+
     madctl ^= MADCTL_ROTATE_180_DEGREES;
     madctl ^= MADCTL_ROW_COLUMN_EXCHANGE;
 #endif

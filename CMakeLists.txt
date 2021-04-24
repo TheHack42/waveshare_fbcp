@@ -20,6 +20,7 @@ file(GLOB DIR_SRCS 	*
 					src/display/*
 					src/lcd_driver/*
 				)
+project(waveshare_fbcp)
 
 
 

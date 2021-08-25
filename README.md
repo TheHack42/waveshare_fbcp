@@ -44,10 +44,25 @@ Likewise, if you have any touch controller related dtoverlays active, such as `d
 Run in the console of your Raspberry Pi:
 ```
 cd ~
+sudo apt-get install cmake -y
 git clone https://github.com/EngineerWill/waveshare_fbcp.git
 cd waveshare_fbcp
 mkdir build
 cd build 
+cmake [options] ..
+make -j
+sudo ./fbcp
+```
+If you are in China, you can use the following command
+```
+cd ~
+sudo apt-get install cmake -y
+sudo apt-get install p7zip-full -y
+wget https://www.waveshare.net/w/upload/f/f9/Waveshare_fbcp.7z
+7z x Waveshare_fbcp.7z
+cd waveshare_fbcp
+mkdir build
+cd build
 cmake [options] ..
 make -j
 sudo ./fbcp

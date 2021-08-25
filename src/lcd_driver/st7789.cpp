@@ -93,8 +93,8 @@ void InitST7789()
     // direction so that contents of Y=80...319 is displayed instead of Y=0...239.
     
     if ((madctl & MADCTL_ROW_ADDRESS_ORDER_SWAP))
-      SPI_TRANSFER(0x37 /*VSCSAD: Vertical Scroll Start Address of RAM*/, 0, 320 - DISPLAY_HEIGHT);
-    printf("DISPLAY_HEIGHT =%d\r\n",DISPLAY_HEIGHT);
+      SPI_TRANSFER(0x37 /*VSCSAD: Vertical Scroll Start Address of RAM*/, 0, 320 - DISPLAY_WIDTH);
+    //printf("DISPLAY_HEIGHT =%d\r\n",DISPLAY_HEIGHT);
 #endif
 
       // TODO: The 0xB1 command is not Frame Rate Control for ST7789VW, 0xB3 is (add support to it)
@@ -111,6 +111,9 @@ void InitST7789()
     SPI_TRANSFER(0xc3, 0x12);
     SPI_TRANSFER(0xc4, 0x20);
     SPI_TRANSFER(0xc6, 0x0f);
+#endif
+#if defined(WAVESHARE_2INCH_LCD)
+    //SPI_TRANSFER(0x37, 0X00,0X00);
 #endif
 #if 0
     // TODO: ST7789VW Python example suggests following, check them against datasheet if there's anything interesting

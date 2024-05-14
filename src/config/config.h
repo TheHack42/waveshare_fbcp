@@ -202,7 +202,7 @@
 
 // If enabled, reads keyboard for input events to detect when the system has gone inactive and backlight
 // can be turned off
-#define BACKLIGHT_CONTROL_FROM_KEYBOARD
+//#define BACKLIGHT_CONTROL_FROM_KEYBOARD
 
 // This device file is used to capture keyboard input. This may be "/dev/input/event0" or something else
 // on some Pis

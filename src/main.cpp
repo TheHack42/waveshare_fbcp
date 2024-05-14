@@ -572,7 +572,16 @@ int main()
     if (displayIsActive)
       displayContentsLastChanged = tick();
 
-    bool keyboardIsActive = TimeSinceLastKeyboardPress() < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY || TimeSinceLastGpioKeyPress() < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY;
+    int smallest = 0;
+    int a = TimeSinceLastKeyboardPress();
+    int b = TimeSinceLastGpioKeyPress();
+
+    if (a > 0 && (a <= b || b == 0))
+      smallest = a;
+    else if (b > 0 && (b <= a || a == 0))
+      smallest = b;
+
+    bool keyboardIsActive = smallest < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY;
     if (displayIsActive || keyboardIsActive)
     {
       if (displayOff)

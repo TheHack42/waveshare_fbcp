@@ -2,8 +2,6 @@
 #include <fcntl.h> // O_RDONLY, O_NONBLOCK
 #include <stdio.h> // printf
 #include <stdint.h> // uint64_t
-#include <pigpio.h>
-#include <pigpiod_if2.h>
 
 #include "config.h"
 #include "keyboard.h"
@@ -36,7 +34,7 @@ int ReadGpio()
       if (!GET_GPIO(_gpio_list[i]))
         numRead++;
   }
-  printf("%d\n", numRead);
+
   return numRead;
 #else
   return 0;

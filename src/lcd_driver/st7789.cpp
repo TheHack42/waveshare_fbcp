@@ -113,7 +113,7 @@ void InitST7789()
     SPI_TRANSFER(0xc6, 0x0f);
 #endif
 #if defined(WAVESHARE_2INCH_LCD)
-    //SPI_TRANSFER(0x37, 0X00,0X00);
+    SPI_TRANSFER(0x37, 0X00,0X00);
 #endif
 #if 0
     // TODO: ST7789VW Python example suggests following, check them against datasheet if there's anything interesting

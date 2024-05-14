@@ -28,6 +28,7 @@
 #include "diff.h"
 #include "mem_alloc.h"
 #include "keyboard.h"
+#include "gpio_key.h"
 #include "low_battery.h"
 
 int CountNumChangedPixels(uint16_t *framebuffer, uint16_t *prevFramebuffer)
@@ -143,7 +144,10 @@ int main()
   bool interlacedUpdate = false; // True if the previous update we did was an interlaced half field update.
   int frameParity = 0;           // For interlaced frame updates, this is either 0 or 1 to denote evens or odds.
   OpenKeyboard();
+  OpenGpioKey();
   printf("All initialized, now running main loop...\n");
+
+
   while (programRunning)
   {
     prevFrameWasInterlacedUpdate = interlacedUpdate;
@@ -568,7 +572,7 @@ int main()
     if (displayIsActive)
       displayContentsLastChanged = tick();
 
-    bool keyboardIsActive = TimeSinceLastKeyboardPress() < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY;
+    bool keyboardIsActive = TimeSinceLastKeyboardPress() < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY || TimeSinceLastGpioKeyPress() < TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY;
     if (displayIsActive || keyboardIsActive)
     {
       if (displayOff)
@@ -602,5 +606,6 @@ int main()
   DeinitSPI();
   CloseMailbox();
   CloseKeyboard();
+  CloseGpioKey();
   printf("Quit.\n");
 }

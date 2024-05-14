@@ -208,8 +208,6 @@
 // on some Pis
 #define KEYBOARD_INPUT_FILE "/dev/input/event1"
 
-#define PIGPIOD_HOST "localhost"
-#define PIGPIOD_PORT "8888"
 #define BACKLIGHT_CONTROL_FROM_GPIO_KEY
 #define GPIO_KEY_LISTS {6, 19, 5, 26, 13, 16}
 

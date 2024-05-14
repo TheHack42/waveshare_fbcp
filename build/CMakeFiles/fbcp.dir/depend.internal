@@ -86,9 +86,31 @@ CMakeFiles/fbcp.dir/src/display/dma.cpp.o
  /home/pi/waveshare_fbcp/src/display/tick.h
  /home/pi/waveshare_fbcp/src/display/util.h
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o
+ ../src/board/freeplaytech_waveshare32b.h
+ ../src/board/waveshare35b.h
+ ../src/board/waveshare_0inch96_lcd.h
+ ../src/board/waveshare_1inch14_lcd.h
+ ../src/board/waveshare_1inch3_lcd_hat.h
+ ../src/board/waveshare_1inch44_lcd_hat.h
+ ../src/board/waveshare_1inch8_lcd.h
+ ../src/board/waveshare_2inch4_lcd.h
+ ../src/board/waveshare_2inch_lcd.h
  ../src/config/config.h
+ ../src/lcd_driver/hx8357d.h
+ ../src/lcd_driver/ili9341.h
+ ../src/lcd_driver/ili9486.h
+ ../src/lcd_driver/ili9486l.h
+ ../src/lcd_driver/ili9488.h
+ ../src/lcd_driver/mpi3501.h
+ ../src/lcd_driver/mz61581.h
+ ../src/lcd_driver/ssd1351.h
+ ../src/lcd_driver/st7735r.h
+ ../src/lcd_driver/st7789.h
+ /home/pi/waveshare_fbcp/src/display/display.h
+ /home/pi/waveshare_fbcp/src/display/dma.h
  /home/pi/waveshare_fbcp/src/display/gpio_key.cpp
  /home/pi/waveshare_fbcp/src/display/keyboard.h
+ /home/pi/waveshare_fbcp/src/display/spi.h
  /home/pi/waveshare_fbcp/src/display/tick.h
  /home/pi/waveshare_fbcp/src/display/util.h
 CMakeFiles/fbcp.dir/src/display/gpu.cpp.o

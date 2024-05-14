@@ -9,41 +9,34 @@
 #include "keyboard.h"
 #include "util.h"
 #include "tick.h"
+#include "spi.h"
 
 #if defined(BACKLIGHT_CONTROL_FROM_GPIO_KEY) && defined(TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY)
 #define READ_GPIO_KEY_ENABLED
 #endif
 
-int _pi = -1;
 const int _gpio_list[] = GPIO_KEY_LISTS;
 const int _gpio_list_size = sizeof(_gpio_list) / sizeof(_gpio_list[0]);
 
 void OpenGpioKey()
 {
 #ifdef READ_GPIO_KEY_ENABLED
-  _pi = pigpio_start(PIGPIOD_HOST, PIGPIOD_PORT);
-  if (_pi < 0) {
-      printf("Failed pigpiod connected\n");
-  } else {
     for (int i = 0; i < _gpio_list_size; ++i) {
-      set_mode(_pi, _gpio_list[i], PI_INPUT);
-      set_pull_up_down(_pi, _gpio_list[i], PI_PUD_UP);
+      SET_GPIO_MODE(_gpio_list[i], 0);
     }
-  }
 #endif
 }
 
 int ReadGpio()
 {
 #ifdef READ_GPIO_KEY_ENABLED
-  if (_pi < 0) return 0;
   int numRead = 0;
   
   for (int i = 0; i < _gpio_list_size; ++i) {
-      if (!gpio_read(_pi, _gpio_list[i]))
+      if (!GET_GPIO(_gpio_list[i]))
         numRead++;
   }
-  
+  printf("%d\n", numRead);
   return numRead;
 #else
   return 0;
@@ -53,11 +46,7 @@ int ReadGpio()
 void CloseGpioKey()
 {
 #ifdef READ_GPIO_KEY_ENABLED
-  if (_pi >= 0)
-  {
-    pigpio_stop(_pi);
-    _pi = -1;
-  }
+
 #endif
 }
 
@@ -68,7 +57,7 @@ uint64_t TimeSinceLastGpioKeyPress(void)
 {
 #ifdef READ_GPIO_KEY_ENABLED
   uint64_t now = tick();
-  if (now - lastGpioKeyPressCheckTime >= 250000) // ReadGpio() takes about 8 usecs on Pi 3B, so 250msecs poll interval should be fine
+  if (now - lastGpioKeyPressCheckTime >= 20000) // ReadGpio() takes about 8 usecs on Pi 3B, so 250msecs poll interval should be fine
   {
     lastGpioKeyPressCheckTime = now;
     if (ReadGpio())

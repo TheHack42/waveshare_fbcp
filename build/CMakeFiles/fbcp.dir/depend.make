@@ -85,9 +85,31 @@ CMakeFiles/fbcp.dir/src/display/dma.cpp.o: ../src/display/spi.h
 CMakeFiles/fbcp.dir/src/display/dma.cpp.o: ../src/display/tick.h
 CMakeFiles/fbcp.dir/src/display/dma.cpp.o: ../src/display/util.h
 
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/freeplaytech_waveshare32b.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare35b.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_0inch96_lcd.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_1inch14_lcd.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_1inch3_lcd_hat.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_1inch44_lcd_hat.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_1inch8_lcd.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_2inch4_lcd.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/board/waveshare_2inch_lcd.h
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/config/config.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/hx8357d.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/ili9341.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/ili9486.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/ili9486l.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/ili9488.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/mpi3501.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/mz61581.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/ssd1351.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/st7735r.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/lcd_driver/st7789.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/display.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/dma.h
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/gpio_key.cpp
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/keyboard.h
+CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/spi.h
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/tick.h
 CMakeFiles/fbcp.dir/src/display/gpio_key.cpp.o: ../src/display/util.h
 

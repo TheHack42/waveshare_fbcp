@@ -321,4 +321,4 @@ endif()
 
 add_executable(fbcp ${DIR_SRCS})
 
-target_link_libraries(fbcp pthread bcm_host atomic)
+target_link_libraries(fbcp pthread bcm_host atomic pigpio pigpiod_if2)

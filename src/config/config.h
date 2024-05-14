@@ -208,6 +208,11 @@
 // on some Pis
 #define KEYBOARD_INPUT_FILE "/dev/input/event1"
 
+#define PIGPIOD_HOST "localhost"
+#define PIGPIOD_PORT "8888"
+#define BACKLIGHT_CONTROL_FROM_GPIO_KEY
+#define GPIO_KEY_LISTS {6, 19, 5, 26, 13, 16}
+
 // If enabled, the display backlight will be turned off after this many usecs of no activity on screen.
 #define TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY (1 * 60 * 1000000)
 
@@ -226,7 +231,7 @@
 // If less than this much % of the screen changes per frame, the screen is considered to be inactive, and
 // the display backlight can automatically turn off, if TURN_DISPLAY_OFF_AFTER_USECS_OF_INACTIVITY is 
 // defined.
-#define DISPLAY_CONSIDERED_INACTIVE_PERCENTAGE (5.0 / 100.0)
+#define DISPLAY_CONSIDERED_INACTIVE_PERCENTAGE (0.1 / 100.0)
 
 #ifndef KERNEL_MODULE
 

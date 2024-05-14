@@ -11,7 +11,7 @@ void InitST7789()
 {
   // If a Reset pin is defined, toggle it briefly high->low->high to enable the device. Some devices do not have a reset pin, in which case compile with GPIO_TFT_RESET_PIN left undefined.
 #if defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
-  printf("Resetting display at reset GPIO pin %d\n", GPIO_TFT_RESET_PIN);
+  printf("InitST7789: Resetting display at reset GPIO pin %d\n", GPIO_TFT_RESET_PIN);
   SET_GPIO_MODE(GPIO_TFT_RESET_PIN, 1);
   SET_GPIO(GPIO_TFT_RESET_PIN);
   usleep(120 * 1000);
@@ -163,7 +163,7 @@ void TurnDisplayOff()
 
   usleep(120*1000); // Sleep off can be sent 120msecs after entering sleep mode the earliest, so synchronously sleep here for that duration to be safe.
 #endif
-  //  printf("Turned display OFF\n");
+   printf("Turned display OFF\n");
 }
 
 void TurnDisplayOn()
@@ -177,7 +177,7 @@ void TurnDisplayOn()
   SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
   SET_GPIO(GPIO_TFT_BACKLIGHT);            // And turn the backlight on.
 #endif
-  //  printf("Turned display ON\n");
+     printf("Turned display ON\n");
 }
 
 void DeinitSPIDisplay()

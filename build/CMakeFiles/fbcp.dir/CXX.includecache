@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/config/config.h
+
+/home/pi/waveshare_fbcp/src/display/gpio_key.cpp
+linux/input.h
+-
+fcntl.h
+-
+stdio.h
+-
+stdint.h
+-
+pigpio.h
+-
+pigpiod_if2.h
+-
+config.h
+/home/pi/waveshare_fbcp/src/display/config.h
+keyboard.h
+/home/pi/waveshare_fbcp/src/display/keyboard.h
+util.h
+/home/pi/waveshare_fbcp/src/display/util.h
+tick.h
+/home/pi/waveshare_fbcp/src/display/tick.h
+
+/home/pi/waveshare_fbcp/src/display/keyboard.h
+
+/home/pi/waveshare_fbcp/src/display/tick.h
+inttypes.h
+-
+unistd.h
+-
+
+/home/pi/waveshare_fbcp/src/display/util.h
+

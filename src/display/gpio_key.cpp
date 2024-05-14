@@ -15,7 +15,8 @@
 #endif
 
 int _pi = -1;
-
+const int _gpio_list[] = GPIO_KEY_LISTS;
+const int _gpio_list_size = sizeof(_gpio_list) / sizeof(_gpio_list[0]);
 
 void OpenGpioKey()
 {
@@ -23,6 +24,11 @@ void OpenGpioKey()
   _pi = pigpio_start(PIGPIOD_HOST, PIGPIOD_PORT);
   if (_pi < 0) {
       printf("Failed pigpiod connected\n");
+  } else {
+    for (int i = 0; i < _gpio_list_size; ++i) {
+      set_mode(_pi, _gpio_list[i], PI_INPUT);
+      set_pull_up_down(_pi, _gpio_list[i], PI_PUD_UP);
+    }
   }
 #endif
 }
@@ -32,13 +38,12 @@ int ReadGpio()
 #ifdef READ_GPIO_KEY_ENABLED
   if (_pi < 0) return 0;
   int numRead = 0;
-  const int gpio_list[] = GPIO_KEY_LISTS;
-  int size = sizeof(gpio_list) / sizeof(gpio_list[0]);
-  for (int i = 0; i < size; ++i) {
-      if (gpio_read(_pi, gpio_list[i]))
+  
+  for (int i = 0; i < _gpio_list_size; ++i) {
+      if (!gpio_read(_pi, _gpio_list[i]))
         numRead++;
   }
-
+  
   return numRead;
 #else
   return 0;
